@@ -6,7 +6,7 @@ const listeningChannels = {}
 
 const subscribe = (channel, fn) => {
 
-  if(listeningChannels[channel]) {
+  if(!listeningChannels[channel]) {
     listeningChannels[channel] = []
   }
 
@@ -28,3 +28,17 @@ const publish = (channel, message) => {
 
 
 
+const clientA = (message) => {
+  console.log(`Received message ${message} in clientA`)
+}
+
+
+const clientB = (message) => {
+  console.log(`Received message ${message} in clientB`)
+}
+
+
+subscribe('chat1', clientA)
+subscribe('chat1', clientB)
+
+publish('chat1', 'My first message to world')
